@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+const sessionId = Astro.url.searchParams.get('session_id');
+---
+<Base title="You're in — Threadwise" description="Welcome to Threadwise." path="/success">
+  <section class="py-32">
+    <div class="max-w-2xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 mb-6">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">You're on Threadwise 🎉</h1>
+      <p class="mt-4 text-[color:var(--color-muted)]">Thanks for subscribing. We've emailed you a setup guide and your admin invite.</p>
+      {sessionId && <p class="mt-6 text-xs text-[color:var(--color-muted)]">Confirmation: <code class="text-indigo-300">{sessionId.slice(0, 24)}…</code></p>}
+      <a href="/" class="mt-10 inline-block px-6 py-3 rounded-lg bg-[color:var(--color-brand)] hover:bg-[color:var(--color-brand-hover)] text-white font-semibold transition">
+        Back to homepage
+      </a>
+    </div>
+  </section>
+</Base>

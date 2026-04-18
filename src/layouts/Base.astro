@@ -1,0 +1,66 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  jsonLd?: Record<string, unknown>;
+  path?: string;
+}
+
+const {
+  title = 'Threadwise — Team knowledge, threaded.',
+  description = 'Threadwise is the AI-powered team knowledge base with threaded discussions on every doc. Replace Notion, Confluence and Slack search in one tool.',
+  jsonLd,
+  path = '/',
+} = Astro.props;
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://threadwise.vercel.app';
+const canonical = new URL(path, siteUrl).toString();
+
+const defaultJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Threadwise',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  description,
+  url: siteUrl,
+  offers: {
+    '@type': 'AggregateOffer',
+    lowPrice: '9',
+    highPrice: '99',
+    priceCurrency: 'GBP',
+  },
+};
+
+const ld = jsonLd ?? defaultJsonLd;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#07070c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body class="min-h-screen flex flex-col">
+  <Nav />
+  <main class="flex-1"><slot /></main>
+  <Footer />
+</body>
+</html>

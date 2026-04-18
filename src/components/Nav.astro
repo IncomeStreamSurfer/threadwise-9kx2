@@ -1,0 +1,26 @@
+---
+const { pathname } = Astro.url;
+const links = [
+  { href: '/#features', label: 'Features' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/#testimonials', label: 'Customers' },
+  { href: '/#faq', label: 'FAQ' },
+];
+---
+<header class="sticky top-0 z-40 backdrop-blur-md bg-[color:var(--color-bg)]/70 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 font-semibold">
+      <span class="inline-block w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 shadow-lg shadow-indigo-500/30"></span>
+      <span class="text-lg tracking-tight">Threadwise</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-[color:var(--color-muted)]">
+      {links.map(l => (
+        <a href={l.href} class={`hover:text-white transition ${pathname === l.href ? 'text-white' : ''}`}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="/#signup" class="text-sm text-[color:var(--color-muted)] hover:text-white hidden sm:inline">Sign in</a>
+      <a href="/pricing" class="text-sm px-4 py-2 rounded-lg bg-[color:var(--color-brand)] hover:bg-[color:var(--color-brand-hover)] text-white font-medium transition shadow-lg shadow-indigo-500/30">Start free trial</a>
+    </div>
+  </div>
+</header>
